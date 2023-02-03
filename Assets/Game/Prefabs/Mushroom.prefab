@@ -47,8 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f46d0b89844be8919ee7b49e216e6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 10
   spriteRenderer: {fileID: 624957080408028251}
+  rb: {fileID: 2359448602280618583}
 --- !u!50 &2359448602280618583
 Rigidbody2D:
   serializedVersion: 4
@@ -64,7 +65,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 5
   m_Material: {fileID: 6200000, guid: 6df9398d161f6aa48a8cd1f287e70552, type: 2}
   m_IncludeLayers:
     serializedVersion: 2

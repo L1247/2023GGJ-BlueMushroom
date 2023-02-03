@@ -1,4 +1,8 @@
+#region
+
 using UnityEngine;
+
+#endregion
 
 namespace Game.Scripts
 {
@@ -16,6 +20,9 @@ namespace Game.Scripts
 
         [SerializeField]
         private SpriteRenderer spriteRenderer;
+
+        [SerializeField]
+        private Rigidbody2D rb;
 
     #endregion
 
@@ -39,7 +46,9 @@ namespace Game.Scripts
         private void Move()
         {
             Turn(GetHorizontalAxis());
-            transform.position += (Vector3)direction * Time.deltaTime * moveSpeed;
+            // rb.velocity = Vector2.zero;
+            rb.velocity = new Vector2(direction.x * moveSpeed * 300 * Time.deltaTime , rb.velocity.y);
+            // transform.position += (Vector3)direction * Time.deltaTime * moveSpeed;
         }
 
         private void Turn(int horizontalAxis)

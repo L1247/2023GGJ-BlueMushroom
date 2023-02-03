@@ -523,10 +523,18 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 1
       m_CornerMode: 1
-    - position: {x: 18.33052, y: -0.9877144, z: 0}
+    - position: {x: 16.824879, y: -0.9191408, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
+      rightTangent: {x: 1.4822407, y: -0.06136918, z: 0}
+      mode: 2
+      height: 1
+      spriteIndex: 0
+      corner: 1
+      m_CornerMode: 1
+    - position: {x: 23.427767, y: 0.36443716, z: 0}
+      leftTangent: {x: -3.5554848, y: -1.5737433, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
-      mode: 0
+      mode: 2
       height: 1
       spriteIndex: 0
       corner: 1
@@ -548,8 +556,20 @@ MonoBehaviour:
   m_Creator: {fileID: 0}
   m_Modifiers: []
   m_ColliderSegment:
-  - {x: -2.138155, y: -1.0202613}
-  - {x: 18.330519, y: -0.9880444}
+  - {x: -2.1381536, y: -1.0202613}
+  - {x: 16.824863, y: -0.91947055}
+  - {x: 17.796799, y: -0.9617364}
+  - {x: 18.40541, y: -0.963687}
+  - {x: 18.769258, y: -0.9470749}
+  - {x: 19.148073, y: -0.91456425}
+  - {x: 19.734667, y: -0.83059955}
+  - {x: 19.994532, y: -0.7852375}
+  - {x: 20.465153, y: -0.68174213}
+  - {x: 20.971903, y: -0.54768944}
+  - {x: 21.616743, y: -0.34516224}
+  - {x: 22.107315, y: -0.17390391}
+  - {x: 22.742765, y: 0.07283297}
+  - {x: 23.4279, y: 0.36413538}
 --- !u!1971053207 &1800533215
 SpriteShapeRenderer:
   m_ObjectHideFlags: 0
@@ -606,8 +626,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   m_LocalAABB:
-    m_Center: {x: 8.096181, y: -1.0038228, z: 0}
-    m_Extent: {x: 10.234596, y: 0.1811082, z: 0}
+    m_Center: {x: 10.677759, y: -0.3348056, z: 0}
+    m_Extent: {x: 12.816792, y: 0.8501234, z: 0}
   m_SpriteSortPoint: 0
 --- !u!4 &1800533216
 Transform:
@@ -659,8 +679,20 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0.1}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -2.138155, y: -1.0202613}
-  - {x: 18.330519, y: -0.9880444}
+  - {x: -2.1381536, y: -1.0202613}
+  - {x: 16.824863, y: -0.91947055}
+  - {x: 17.796799, y: -0.9617364}
+  - {x: 18.40541, y: -0.963687}
+  - {x: 18.769258, y: -0.9470749}
+  - {x: 19.148073, y: -0.91456425}
+  - {x: 19.734667, y: -0.83059955}
+  - {x: 19.994532, y: -0.7852375}
+  - {x: 20.465153, y: -0.68174213}
+  - {x: 20.971903, y: -0.54768944}
+  - {x: 21.616743, y: -0.34516224}
+  - {x: 22.107315, y: -0.17390391}
+  - {x: 22.742765, y: 0.07283297}
+  - {x: 23.4279, y: 0.36413538}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -715,7 +747,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 10.647125, y: -4.2427707}
+  m_Offset: {x: 18.444973, y: -4.2427707}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.28866667}
@@ -726,7 +758,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20.61744, y: 9.90821}
+  m_Size: {x: 29.91221, y: 9.90821}
   m_EdgeRadius: 0
 --- !u!212 &1930654757
 SpriteRenderer:
@@ -838,6 +870,10 @@ PrefabInstance:
     - target: {fileID: 2359448602280618579, guid: 89ccf2a9da862404d90c0a1961fb3ea7, type: 3}
       propertyPath: m_Name
       value: Mushroom
+      objectReference: {fileID: 0}
+    - target: {fileID: 2359448602280618580, guid: 89ccf2a9da862404d90c0a1961fb3ea7, type: 3}
+      propertyPath: moveSpeed
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2359448602280618581, guid: 89ccf2a9da862404d90c0a1961fb3ea7, type: 3}
       propertyPath: m_RootOrder

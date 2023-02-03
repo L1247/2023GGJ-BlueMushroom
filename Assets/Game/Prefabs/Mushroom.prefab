@@ -33,7 +33,7 @@ Transform:
   m_Children:
   - {fileID: 7440839435676340205}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2359448602280618580
 MonoBehaviour:
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f46d0b89844be8919ee7b49e216e6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 30
   spriteRenderer: {fileID: 624957080408028251}
   rb: {fileID: 2359448602280618583}
 --- !u!50 &2359448602280618583
@@ -204,5 +204,5 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0

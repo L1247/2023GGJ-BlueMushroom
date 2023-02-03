@@ -14,6 +14,8 @@ namespace Game.Scripts
 
         private Vector2 direction;
 
+        private bool isEnable;
+
         [SerializeField]
         [Min(0)]
         private float moveSpeed;
@@ -30,12 +32,29 @@ namespace Game.Scripts
 
         private void Update()
         {
+            if (isEnable == false) return;
+
             Move();
         }
 
     #endregion
 
+    #region Public Methods
+
+        public void EnableController()
+        {
+            isEnable = true;
+            DisableMask();
+        }
+
+    #endregion
+
     #region Private Methods
+
+        private void DisableMask()
+        {
+            spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
+        }
 
         private int GetHorizontalAxis()
         {

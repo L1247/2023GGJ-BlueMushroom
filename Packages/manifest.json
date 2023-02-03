@@ -3,6 +3,7 @@
     "com.rstar.rstarutility": "https://github.com/L1247/rStarUtility.git?path=Assets/rStarUtility",
     "com.rstartools.bookmarkeverything": "https://github.com/L1247/bookmark-everything.git?path=BookmarkEverything/Assets/BookmarkEverything",
     "com.unity.2d.sprite": "1.0.0",
+    "com.unity.2d.spriteshape": "9.0.1",
     "com.unity.ide.rider": "3.0.18",
     "com.unity.test-framework": "1.1.33",
     "com.unity.textmeshpro": "3.0.6",

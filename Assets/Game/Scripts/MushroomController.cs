@@ -1,5 +1,6 @@
 #region
 
+using GameJamUtility.Core.AudioManager;
 using UnityEngine;
 
 #endregion
@@ -82,6 +83,7 @@ namespace Game.Scripts
             currentHealthAmount -= 1;
             var healthPercent = currentHealthAmount / (float)healthAmount;
             healthBar.SetFillAmount(healthPercent);
+            AudioManager.Instance.PlayAudio("HeroHurt");
             if (currentHealthAmount == 0) Die();
         }
 

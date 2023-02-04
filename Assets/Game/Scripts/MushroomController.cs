@@ -14,6 +14,8 @@ namespace Game.Scripts
 
         private Vector2 direction;
 
+        private bool onGround;
+
         [SerializeField]
         [Min(0)]
         private float moveSpeed;
@@ -32,6 +34,9 @@ namespace Game.Scripts
 
         [SerializeField]
         private float flashDuration = 0.3f;
+
+        [SerializeField]
+        private int healthAmount = 6;
 
     #endregion
 
@@ -66,11 +71,22 @@ namespace Game.Scripts
         {
             spriteRenderer.color = Color.red;
             Invoke(nameof(ResetColor) , flashDuration);
+            healthAmount -= 1;
+            if (healthAmount == 0) Die();
         }
 
     #endregion
 
     #region Private Methods
+
+        [ContextMenu("Die")]
+        private void Die()
+        {
+            movable        = false;
+            rb.constraints = RigidbodyConstraints2D.None;
+            var angularVelocity = onGround ? 400 : 100;
+            rb.angularVelocity = angularVelocity;
+        }
 
         private void DisableMask()
         {
@@ -92,6 +108,18 @@ namespace Game.Scripts
         {
             Turn(GetHorizontalAxis());
             rb.velocity = new Vector2(direction.x * moveSpeed * 300 * Time.deltaTime , rb.velocity.y);
+        }
+
+        private void OnCollisionEnter2D(Collision2D col)
+        {
+            var isGroundObject           = col.gameObject.name == "Ground";
+            if (isGroundObject) onGround = true;
+        }
+
+        private void OnCollisionExit2D(Collision2D col)
+        {
+            var isGroundObject           = col.gameObject.name == "Ground";
+            if (isGroundObject) onGround = false;
         }
 
         private void ResetColor()

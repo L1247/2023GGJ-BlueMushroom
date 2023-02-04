@@ -12,11 +12,16 @@ namespace Game.Scripts
 
         private Vector3 mushPosition;
 
+        private Vector3 moveDirection;
+
         [SerializeField]
         private LineRenderer lineRenderer;
 
         [SerializeField]
         private Transform center;
+
+        [SerializeField]
+        private float moveSpeed = 5;
 
     #endregion
 
@@ -25,18 +30,28 @@ namespace Game.Scripts
         private void Awake()
         {
             var mushroomController = FindObjectOfType<MushroomController>();
-            mushPosition = mushroomController.transform.position;
+            mushPosition   =  mushroomController.GetPos();
+            mushPosition.y += 1;
+
             RefreshLineRendererPositions();
+            Destroy(gameObject , 3f);
         }
 
         private void Update()
         {
             RefreshLineRendererPositions();
+            MoveTowardToDestination();
         }
 
     #endregion
 
     #region Private Methods
+
+        private void MoveTowardToDestination()
+        {
+            moveDirection      =  (mushPosition - transform.position).normalized;
+            transform.position += moveDirection * Time.deltaTime * moveSpeed;
+        }
 
         private void RefreshLineRendererPositions()
         {

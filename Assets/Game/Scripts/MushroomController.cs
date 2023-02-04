@@ -90,6 +90,7 @@ namespace Game.Scripts
         private void Die()
         {
             movable        = false;
+            rb.velocity    = Vector2.zero;
             rb.constraints = RigidbodyConstraints2D.None;
             var angularVelocity              = onGround ? 400 : 100;
             var angularVelocityWithDirection = IsFacingLeft() ? -angularVelocity : angularVelocity;
@@ -126,13 +127,13 @@ namespace Game.Scripts
 
         private void OnCollisionEnter2D(Collision2D col)
         {
-            var isGroundObject           = col.gameObject.name == "Ground";
+            var isGroundObject           = col.gameObject.name is "Ground" or "One way platform";
             if (isGroundObject) onGround = true;
         }
 
         private void OnCollisionExit2D(Collision2D col)
         {
-            var isGroundObject           = col.gameObject.name == "Ground";
+            var isGroundObject           = col.gameObject.name is "Ground" or "One way platform";
             if (isGroundObject) onGround = false;
         }
 

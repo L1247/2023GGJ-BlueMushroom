@@ -288,7 +288,7 @@ Transform:
   - {fileID: 7440839435676340205}
   - {fileID: 1808194254}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2359448602280618580
 MonoBehaviour:
@@ -308,7 +308,7 @@ MonoBehaviour:
   movable: 1
   jumpForce: 22
   flashDuration: 0.6
-  healthAmount: 6
+  healthAmount: 1
   healthBar: {fileID: 1364161304550683418}
 --- !u!50 &2359448602280618583
 Rigidbody2D:
@@ -336,7 +336,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &2359448602280618582
 BoxCollider2D:
   m_ObjectHideFlags: 0

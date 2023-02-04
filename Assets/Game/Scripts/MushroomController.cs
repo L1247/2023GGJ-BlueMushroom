@@ -26,9 +26,17 @@ namespace Game.Scripts
         [SerializeField]
         private Rigidbody2D rb;
 
+        [SerializeField]
+        private bool movable;
+
     #endregion
 
     #region Unity events
+
+        private void Start()
+        {
+            if (movable) EnableController();
+        }
 
         private void Update()
         {
@@ -74,11 +82,11 @@ namespace Game.Scripts
         {
             direction = horizontalAxis switch
             {
-                1 => Vector2.right , -1 => Vector2.left , 0 => Vector2.zero , _ => direction
+                    1 => Vector2.right , -1 => Vector2.left , 0 => Vector2.zero , _ => direction
             };
             spriteRenderer.flipX = horizontalAxis switch
             {
-                1 => false , -1 => true , _ => spriteRenderer.flipX
+                    1 => false , -1 => true , _ => spriteRenderer.flipX
             };
         }
 

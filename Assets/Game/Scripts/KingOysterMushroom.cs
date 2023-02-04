@@ -52,6 +52,7 @@ namespace Game.Scripts
 
         private void Update()
         {
+            FacingMushroom();
             if (DoAttack()) Attack();
         }
 
@@ -70,6 +71,13 @@ namespace Game.Scripts
         {
             var doAttack = Time.time >= lastAttackedTime + attackFrequency;
             return doAttack;
+        }
+
+        private void FacingMushroom()
+        {
+            var mushroomX = mushroomController.GetPos().x;
+            var mineX     = transform.position.x;
+            spriteRenderer.flipX = mineX <= mushroomX;
         }
 
         private void ResetSprite()

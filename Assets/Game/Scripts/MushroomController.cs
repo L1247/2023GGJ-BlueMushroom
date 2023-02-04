@@ -18,6 +18,8 @@ namespace Game.Scripts
 
         private int currentHealthAmount;
 
+        private bool isDead;
+
         [SerializeField]
         [Min(0)]
         private float moveSpeed;
@@ -74,6 +76,7 @@ namespace Game.Scripts
         [ContextMenu("TakeDamage")]
         public void TakeDamage()
         {
+            if (isDead) return;
             spriteRenderer.color = Color.red;
             Invoke(nameof(ResetColor) , flashDuration);
             currentHealthAmount -= 1;
@@ -89,6 +92,7 @@ namespace Game.Scripts
         [ContextMenu("Die")]
         private void Die()
         {
+            isDead         = true;
             movable        = false;
             rb.velocity    = Vector2.zero;
             rb.constraints = RigidbodyConstraints2D.None;

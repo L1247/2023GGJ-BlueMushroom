@@ -20,7 +20,7 @@ public class ScenceControll : MonoBehaviour
     }
     
     // Update is called once per frame
-    public void port(string scenceName)
+    public void Port(string scenceName)
     {
         SceneManager.LoadSceneAsync(scenceName);
     }

@@ -21,6 +21,8 @@ namespace Game.Scripts
 
         private bool isDead;
 
+        private readonly float groundCheckDistance = 0.2f;
+
         [SerializeField]
         [Min(0)]
         private float moveSpeed;
@@ -49,6 +51,12 @@ namespace Game.Scripts
         [SerializeField]
         private Animator animator;
 
+        [SerializeField]
+        private Transform groundSensor;
+
+        [SerializeField]
+        private LayerMask groundCheckLayerMask;
+
     #endregion
 
     #region Unity events
@@ -63,6 +71,8 @@ namespace Game.Scripts
         private void Update()
         {
             if (movable == false) return;
+            CheckOnGround();
+            PlayAnimationWithOnGroundState();
             HandleMove();
             HandleJump();
         }
@@ -98,6 +108,15 @@ namespace Game.Scripts
     #endregion
 
     #region Private Methods
+
+        private void CheckOnGround()
+        {
+            var groundSensorPosition = groundSensor.position;
+            var groundSensorForward = -groundSensor.up;
+            var hit = Physics2D.Raycast(groundSensorPosition , groundSensorForward , groundCheckDistance , groundCheckLayerMask);
+            onGround = hit.collider is not null;
+            Debug.DrawRay(groundSensorPosition , groundSensorForward * groundCheckDistance , onGround ? Color.green : Color.red);
+        }
 
         [ContextMenu("Die")]
         private void Die()
@@ -141,24 +160,10 @@ namespace Game.Scripts
             return spriteRenderer.flipX;
         }
 
-        private void OnCollisionEnter2D(Collision2D col)
+        private void PlayAnimationWithOnGroundState()
         {
-            var isGroundObject = col.gameObject.name is "Ground" or "One way platform";
-            if (isGroundObject)
-            {
-                onGround = true;
-                animator.Play("Idle");
-            }
-        }
-
-        private void OnCollisionExit2D(Collision2D col)
-        {
-            var isGroundObject = col.gameObject.name is "Ground" or "One way platform";
-            if (isGroundObject)
-            {
-                onGround = false;
-                animator.Play("Fall");
-            }
+            var stateName = onGround ? "Idle" : "Fall";
+            animator.Play(stateName);
         }
 
         private void ResetColor()

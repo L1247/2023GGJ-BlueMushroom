@@ -52,6 +52,7 @@ MonoBehaviour:
   rb: {fileID: 2359448602280618583}
   movable: 1
   jumpForce: 22
+  flashDuration: 0.6
 --- !u!50 &2359448602280618583
 Rigidbody2D:
   serializedVersion: 4

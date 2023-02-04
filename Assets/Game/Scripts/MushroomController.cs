@@ -32,6 +32,9 @@ namespace Game.Scripts
         [SerializeField]
         private int jumpForce = 15;
 
+        [SerializeField]
+        private float flashDuration = 0.3f;
+
     #endregion
 
     #region Unity events
@@ -86,6 +89,18 @@ namespace Game.Scripts
             // rb.velocity = Vector2.zero;
             rb.velocity = new Vector2(direction.x * moveSpeed * 300 * Time.deltaTime , rb.velocity.y);
             // transform.position += (Vector3)direction * Time.deltaTime * moveSpeed;
+        }
+
+        private void ResetColor()
+        {
+            spriteRenderer.color = Color.white;
+        }
+
+        [ContextMenu("TakeDamage")]
+        private void TakeDamage()
+        {
+            spriteRenderer.color = Color.red;
+            Invoke(nameof(ResetColor) , flashDuration);
         }
 
         private void Turn(int horizontalAxis)

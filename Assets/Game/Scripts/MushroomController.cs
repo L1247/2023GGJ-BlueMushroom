@@ -114,7 +114,9 @@ namespace Game.Scripts
 
         private void HandleJump()
         {
-            if (Input.GetKeyDown(KeyCode.Space)) rb.AddForce(new Vector2(rb.velocity.x , jumpForce) , ForceMode2D.Impulse);
+            var spaceKeyDown = Input.GetKeyDown(KeyCode.Space);
+            var canJump      = spaceKeyDown && onGround;
+            if (canJump) rb.AddForce(new Vector2(rb.velocity.x , jumpForce) , ForceMode2D.Impulse);
         }
 
         private void HandleMove()

@@ -1,5 +1,6 @@
 #region
 
+using System.Collections.Generic;
 using GameJamUtility.Core.AudioManager;
 using UnityEngine;
 
@@ -11,6 +12,10 @@ namespace Game.Scripts
     {
     #region Private Variables
 
+        private const int dashPower = 10;
+
+        private const float groundCheckDistance = 0.2f;
+
         private int horizontalAxis;
 
         private Vector2 direction;
@@ -21,7 +26,12 @@ namespace Game.Scripts
 
         private bool isDead;
 
-        private readonly float groundCheckDistance = 0.2f;
+        private bool inDash;
+
+        private float defaultGravityScale;
+
+        private Vector2 defaultColliderOffset;
+        private Vector2 defaultColliderSize;
 
         [SerializeField]
         [Min(0)]
@@ -52,10 +62,13 @@ namespace Game.Scripts
         private Animator animator;
 
         [SerializeField]
-        private Transform groundSensor;
+        private List<Transform> groundSensors;
 
         [SerializeField]
         private LayerMask groundCheckLayerMask;
+
+        [SerializeField]
+        private BoxCollider2D boxCollider2D;
 
     #endregion
 
@@ -63,7 +76,10 @@ namespace Game.Scripts
 
         private void Start()
         {
-            currentHealthAmount = healthAmount;
+            defaultColliderOffset = boxCollider2D.offset;
+            defaultColliderSize   = boxCollider2D.size;
+            defaultGravityScale   = rb.gravityScale;
+            currentHealthAmount   = healthAmount;
             if (movable) EnableController();
             else spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         }
@@ -71,6 +87,8 @@ namespace Game.Scripts
         private void Update()
         {
             if (movable == false) return;
+            HandleDash();
+            if (inDash) return;
             CheckOnGround();
             PlayAnimationWithOnGroundState();
             HandleMove();
@@ -111,11 +129,15 @@ namespace Game.Scripts
 
         private void CheckOnGround()
         {
-            var groundSensorPosition = groundSensor.position;
-            var groundSensorForward = -groundSensor.up;
-            var hit = Physics2D.Raycast(groundSensorPosition , groundSensorForward , groundCheckDistance , groundCheckLayerMask);
-            onGround = hit.collider is not null;
-            Debug.DrawRay(groundSensorPosition , groundSensorForward * groundCheckDistance , onGround ? Color.green : Color.red);
+            foreach (var groundSensor in groundSensors)
+            {
+                var groundSensorPosition = groundSensor.position;
+                var groundSensorForward = -groundSensor.up;
+                var hit = Physics2D.Raycast(groundSensorPosition , groundSensorForward , groundCheckDistance , groundCheckLayerMask);
+                onGround = hit.collider is not null;
+                Debug.DrawRay(groundSensorPosition , groundSensorForward * groundCheckDistance , onGround ? Color.green : Color.red);
+                if (onGround) break;
+            }
         }
 
         [ContextMenu("Die")]
@@ -135,10 +157,36 @@ namespace Game.Scripts
             spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
         }
 
+        private void DoDash()
+        {
+            // boxCollider2D.enabled = false;
+            boxCollider2D.offset = new Vector2(0.04f , 1f);
+            boxCollider2D.size   = new Vector2(3.36f , 2.17f);
+            animator.Play("Dash");
+            rb.gravityScale = 1f;
+            var dashDirection = IsFacingLeft() ? -dashPower : dashPower;
+            var dashMovement  = dashDirection * Time.timeScale * moveSpeed;
+            rb.velocity = new Vector2(dashMovement , 0);
+
+            Invoke(nameof(ResetFromDash) , 0.5f);
+        }
+
         private int GetHorizontalAxis()
         {
             if (horizontalAxis != 0) return horizontalAxis;
             return (int)Input.GetAxisRaw("Horizontal");
+        }
+
+        private void HandleDash()
+        {
+            var notInDash   = inDash == false;
+            var dashKeyDown = Input.GetKeyDown(KeyCode.G);
+            var canDash     = dashKeyDown && notInDash;
+            if (canDash)
+            {
+                inDash = true;
+                DoDash();
+            }
         }
 
         private void HandleJump()
@@ -169,6 +217,16 @@ namespace Game.Scripts
         private void ResetColor()
         {
             spriteRenderer.color = Color.white;
+        }
+
+        private void ResetFromDash()
+        {
+            boxCollider2D.enabled = true;
+            boxCollider2D.offset  = defaultColliderOffset;
+            boxCollider2D.size    = defaultColliderSize;
+            rb.gravityScale       = defaultGravityScale;
+            rb.velocity           = new Vector2(0 , rb.velocity.y);
+            inDash                = false;
         }
 
         private void Turn(int horizontalAxis)

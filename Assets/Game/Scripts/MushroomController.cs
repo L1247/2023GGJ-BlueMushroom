@@ -29,6 +29,9 @@ namespace Game.Scripts
         [SerializeField]
         private bool movable;
 
+        [SerializeField]
+        private int jumpForce = 15;
+
     #endregion
 
     #region Unity events
@@ -36,13 +39,15 @@ namespace Game.Scripts
         private void Start()
         {
             if (movable) EnableController();
+            else spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         }
 
         private void Update()
         {
             if (isEnable == false) return;
 
-            Move();
+            HandleMove();
+            HandleJump();
         }
 
     #endregion
@@ -70,7 +75,12 @@ namespace Game.Scripts
             return (int)Input.GetAxisRaw("Horizontal");
         }
 
-        private void Move()
+        private void HandleJump()
+        {
+            if (Input.GetKeyDown(KeyCode.Space)) rb.AddForce(new Vector2(rb.velocity.x , jumpForce) , ForceMode2D.Impulse);
+        }
+
+        private void HandleMove()
         {
             Turn(GetHorizontalAxis());
             // rb.velocity = Vector2.zero;

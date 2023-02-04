@@ -113,7 +113,7 @@ namespace Game.Scripts
         [ContextMenu("TakeDamage")]
         public void TakeDamage()
         {
-            if (isDead) return;
+            if (isDead || inDash) return;
             spriteRenderer.color = Color.red;
             Invoke(nameof(ResetColor) , flashDuration);
             currentHealthAmount -= 1;

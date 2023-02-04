@@ -1228,14 +1228,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8335709380878601197, guid: 2ebd6cf05f9f8e144b3899ff34fe67fd, type: 3}
-      propertyPath: attackFrequencyMax
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8335709380878601197, guid: 2ebd6cf05f9f8e144b3899ff34fe67fd, type: 3}
-      propertyPath: attackFrequencyMin
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

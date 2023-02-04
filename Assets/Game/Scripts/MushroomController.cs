@@ -46,6 +46,9 @@ namespace Game.Scripts
         [SerializeField]
         private HealthBar healthBar;
 
+        [SerializeField]
+        private Transform center;
+
     #endregion
 
     #region Unity events
@@ -72,6 +75,11 @@ namespace Game.Scripts
         {
             movable = true;
             DisableMask();
+        }
+
+        public Vector3 GetPos()
+        {
+            return transform.position;
         }
 
         [ContextMenu("TakeDamage")]

@@ -14,8 +14,6 @@ namespace Game.Scripts
 
         private Vector2 direction;
 
-        private bool isEnable;
-
         [SerializeField]
         [Min(0)]
         private float moveSpeed;
@@ -47,7 +45,7 @@ namespace Game.Scripts
 
         private void Update()
         {
-            if (isEnable == false) return;
+            if (movable == false) return;
 
             HandleMove();
             HandleJump();
@@ -59,7 +57,7 @@ namespace Game.Scripts
 
         public void EnableController()
         {
-            isEnable = true;
+            movable = true;
             DisableMask();
         }
 
@@ -86,9 +84,7 @@ namespace Game.Scripts
         private void HandleMove()
         {
             Turn(GetHorizontalAxis());
-            // rb.velocity = Vector2.zero;
             rb.velocity = new Vector2(direction.x * moveSpeed * 300 * Time.deltaTime , rb.velocity.y);
-            // transform.position += (Vector3)direction * Time.deltaTime * moveSpeed;
         }
 
         private void ResetColor()

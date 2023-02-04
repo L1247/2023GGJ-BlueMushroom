@@ -47,7 +47,7 @@ namespace Game.Scripts
         private HealthBar healthBar;
 
         [SerializeField]
-        private Transform center;
+        private Animator animator;
 
     #endregion
 
@@ -143,14 +143,22 @@ namespace Game.Scripts
 
         private void OnCollisionEnter2D(Collision2D col)
         {
-            var isGroundObject           = col.gameObject.name is "Ground" or "One way platform";
-            if (isGroundObject) onGround = true;
+            var isGroundObject = col.gameObject.name is "Ground" or "One way platform";
+            if (isGroundObject)
+            {
+                onGround = true;
+                animator.Play("Idle");
+            }
         }
 
         private void OnCollisionExit2D(Collision2D col)
         {
-            var isGroundObject           = col.gameObject.name is "Ground" or "One way platform";
-            if (isGroundObject) onGround = false;
+            var isGroundObject = col.gameObject.name is "Ground" or "One way platform";
+            if (isGroundObject)
+            {
+                onGround = false;
+                animator.Play("Fall");
+            }
         }
 
         private void ResetColor()
@@ -162,11 +170,11 @@ namespace Game.Scripts
         {
             direction = horizontalAxis switch
             {
-                    1 => Vector2.right , -1 => Vector2.left , 0 => Vector2.zero , _ => direction
+                1 => Vector2.right , -1 => Vector2.left , 0 => Vector2.zero , _ => direction
             };
             spriteRenderer.flipX = horizontalAxis switch
             {
-                    1 => false , -1 => true , _ => spriteRenderer.flipX
+                1 => false , -1 => true , _ => spriteRenderer.flipX
             };
         }
 

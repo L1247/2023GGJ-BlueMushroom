@@ -16,6 +16,8 @@ namespace Game.Scripts
 
         private bool onGround;
 
+        private int currentHealthAmount;
+
         [SerializeField]
         [Min(0)]
         private float moveSpeed;
@@ -38,12 +40,16 @@ namespace Game.Scripts
         [SerializeField]
         private int healthAmount = 6;
 
+        [SerializeField]
+        private HealthBar healthBar;
+
     #endregion
 
     #region Unity events
 
         private void Start()
         {
+            currentHealthAmount = healthAmount;
             if (movable) EnableController();
             else spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         }
@@ -71,8 +77,10 @@ namespace Game.Scripts
         {
             spriteRenderer.color = Color.red;
             Invoke(nameof(ResetColor) , flashDuration);
-            healthAmount -= 1;
-            if (healthAmount == 0) Die();
+            currentHealthAmount -= 1;
+            var healthPercent = currentHealthAmount / (float)healthAmount;
+            healthBar.SetFillAmount(healthPercent);
+            if (currentHealthAmount == 0) Die();
         }
 
     #endregion

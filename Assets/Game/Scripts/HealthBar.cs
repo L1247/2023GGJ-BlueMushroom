@@ -1,5 +1,6 @@
 #region
 
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,9 @@ namespace Game.Scripts
         [SerializeField]
         private Image healthBarImage;
 
+        [SerializeField]
+        private TMP_Text healthPercentText;
+
     #endregion
 
     #region Public Methods
@@ -21,6 +25,8 @@ namespace Game.Scripts
         public void SetFillAmount(float fillAmount)
         {
             healthBarImage.fillAmount = fillAmount;
+            var percent = $"{fillAmount * 100:0}%";
+            healthPercentText.text = percent;
         }
 
     #endregion

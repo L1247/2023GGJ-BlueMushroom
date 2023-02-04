@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Game.Scripts
 {
-    public class Lingzi : MonoBehaviour
+    public class DealDamageObject : MonoBehaviour
     {
     #region Private Methods
 

@@ -57,7 +57,6 @@ namespace Game.Scripts
         private void Update()
         {
             if (movable == false) return;
-
             HandleMove();
             HandleJump();
         }
@@ -92,8 +91,9 @@ namespace Game.Scripts
         {
             movable        = false;
             rb.constraints = RigidbodyConstraints2D.None;
-            var angularVelocity = onGround ? 400 : 100;
-            rb.angularVelocity = angularVelocity;
+            var angularVelocity              = onGround ? 400 : 100;
+            var angularVelocityWithDirection = IsFacingLeft() ? -angularVelocity : angularVelocity;
+            rb.angularVelocity = angularVelocityWithDirection;
         }
 
         private void DisableMask()
@@ -114,8 +114,14 @@ namespace Game.Scripts
 
         private void HandleMove()
         {
-            Turn(GetHorizontalAxis());
+            var horizontal = GetHorizontalAxis();
+            Turn(horizontal);
             rb.velocity = new Vector2(direction.x * moveSpeed * 300 * Time.deltaTime , rb.velocity.y);
+        }
+
+        private bool IsFacingLeft()
+        {
+            return spriteRenderer.flipX;
         }
 
         private void OnCollisionEnter2D(Collision2D col)

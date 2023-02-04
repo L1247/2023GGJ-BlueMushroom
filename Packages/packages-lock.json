@@ -1,52 +1,11 @@
 {
   "dependencies": {
-    "com.cysharp.messagepipe": {
-      "version": "1.7.4",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://package.openupm.com"
-    },
-    "com.cysharp.messagepipe.zenject": {
-      "version": "1.7.4",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://package.openupm.com"
-    },
-    "com.cysharp.unitask": {
-      "version": "2.3.1",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://package.openupm.com"
-    },
-    "com.neuecc.unirx": {
-      "version": "7.1.0",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://package.openupm.com"
-    },
     "com.rstar.gamejamutility": {
       "version": "https://github.com/L1247/GameJamUtility.git?path=Assets/Core",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "76cb8ec4f7555d56af79421195c2b678de17e032"
-    },
-    "com.rstar.rstarutility": {
-      "version": "https://github.com/L1247/GameJamUtility.git?path=Assets/Core",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.svermeulen.extenject": "9.2.0-stcf3",
-        "com.cysharp.unitask": "2.3.1",
-        "com.cysharp.messagepipe": "1.7.4",
-        "com.cysharp.messagepipe.zenject": "1.7.4",
-        "com.neuecc.unirx": "7.1.0"
-      },
-      "hash": "2e8bb57042d8d44c5b35256986bc1a3ad408545e"
+      "hash": "7293221ae30201a5d6b8af5515badd2d7a03e474"
     },
     "com.rstartools.bookmarkeverything": {
       "version": "https://github.com/L1247/bookmark-everything.git?path=BookmarkEverything/Assets/BookmarkEverything",
@@ -54,13 +13,6 @@
       "source": "git",
       "dependencies": {},
       "hash": "f5c2181c490c7d97b5ba3d0c9a44e9a2250c3dfb"
-    },
-    "com.svermeulen.extenject": {
-      "version": "9.2.0-stcf3",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://package.openupm.com"
     },
     "com.unity.2d.common": {
       "version": "8.0.1",

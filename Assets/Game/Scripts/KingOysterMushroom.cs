@@ -30,6 +30,15 @@ namespace Game.Scripts
         [SerializeField]
         private GameObject lingzi;
 
+        [SerializeField]
+        private Sprite normalState;
+
+        [SerializeField]
+        private Sprite skillState;
+
+        [SerializeField]
+        private SpriteRenderer spriteRenderer;
+
     #endregion
 
     #region Unity events
@@ -37,34 +46,54 @@ namespace Game.Scripts
         private void Start()
         {
             mushroomController = FindObjectOfType<MushroomController>();
-            SetAttackFrequency();
+            SetNextAttackFrequency();
+            spriteRenderer.sprite = normalState;
         }
 
         private void Update()
         {
-            var doAttack = Time.time >= lastAttackedTime + attackFrequency;
-            if (doAttack)
-            {
-                lastAttackedTime = Time.time;
-                SetAttackFrequency();
-                var mushroomPosition = mushroomController.GetPos();
-                var skillPrefab      = Random.Range(0 , 2) == 0 ? enoki : lingzi;
-                var lingziPosition   = lingzi.transform.position;
-                lingziPosition.x = Random.Range(0 , 2) == 0 ? 9 : -9;
-                var enokiPosition = mushroomPosition;
-                enokiPosition.y -= 1.2f;
-                var skillPosition = skillPrefab == lingzi ? lingziPosition : enokiPosition;
-                Instantiate(skillPrefab , skillPosition , Quaternion.identity);
-            }
+            if (DoAttack()) Attack();
         }
 
     #endregion
 
     #region Private Methods
 
-        private void SetAttackFrequency()
+        private void Attack()
+        {
+            lastAttackedTime = Time.time;
+            SetNextAttackFrequency();
+            SpawnSkill();
+        }
+
+        private bool DoAttack()
+        {
+            var doAttack = Time.time >= lastAttackedTime + attackFrequency;
+            return doAttack;
+        }
+
+        private void ResetSprite()
+        {
+            spriteRenderer.sprite = normalState;
+        }
+
+        private void SetNextAttackFrequency()
         {
             attackFrequency = Random.Range(attackFrequencyMin , attackFrequencyMax);
+        }
+
+        private void SpawnSkill()
+        {
+            spriteRenderer.sprite = skillState;
+            var mushroomPosition = mushroomController.GetPos();
+            var skillPrefab      = Random.Range(0 , 2) == 0 ? enoki : lingzi;
+            var lingziPosition   = lingzi.transform.position;
+            lingziPosition.x = Random.Range(0 , 2) == 0 ? 9 : -9;
+            var enokiPosition = mushroomPosition;
+            enokiPosition.y -= 1.2f;
+            var skillPosition = skillPrefab == lingzi ? lingziPosition : enokiPosition;
+            Instantiate(skillPrefab , skillPosition , Quaternion.identity);
+            Invoke(nameof(ResetSprite) , 0.5f);
         }
 
     #endregion

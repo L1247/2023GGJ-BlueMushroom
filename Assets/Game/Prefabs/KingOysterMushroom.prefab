@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6946621730008009818
 SpriteRenderer:
@@ -101,3 +101,6 @@ MonoBehaviour:
   attackFrequencyMax: 3
   enoki: {fileID: 1805315018834317245, guid: 903dca8397540724482973730dc65835, type: 3}
   lingzi: {fileID: 276391251075298178, guid: 50f9936b01f441a47b0dd9b6889fa10a, type: 3}
+  normalState: {fileID: 21300000, guid: 7f44f1c1c070c7b459a94b5defda7d9f, type: 3}
+  skillState: {fileID: 21300000, guid: 2355b1dff81a55f41b007a652f0378ef, type: 3}
+  spriteRenderer: {fileID: 6946621730008009818}

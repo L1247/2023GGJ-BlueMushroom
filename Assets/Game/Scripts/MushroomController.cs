@@ -61,6 +61,13 @@ namespace Game.Scripts
             DisableMask();
         }
 
+        [ContextMenu("TakeDamage")]
+        public void TakeDamage()
+        {
+            spriteRenderer.color = Color.red;
+            Invoke(nameof(ResetColor) , flashDuration);
+        }
+
     #endregion
 
     #region Private Methods
@@ -90,13 +97,6 @@ namespace Game.Scripts
         private void ResetColor()
         {
             spriteRenderer.color = Color.white;
-        }
-
-        [ContextMenu("TakeDamage")]
-        private void TakeDamage()
-        {
-            spriteRenderer.color = Color.red;
-            Invoke(nameof(ResetColor) , flashDuration);
         }
 
         private void Turn(int horizontalAxis)

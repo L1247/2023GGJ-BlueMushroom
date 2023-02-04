@@ -28,8 +28,15 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
+    "com.rstar.gamejamutility": {
+      "version": "https://github.com/L1247/GameJamUtility.git?path=Assets/Core",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "76cb8ec4f7555d56af79421195c2b678de17e032"
+    },
     "com.rstar.rstarutility": {
-      "version": "https://github.com/L1247/rStarUtility.git?path=Assets/rStarUtility",
+      "version": "https://github.com/L1247/GameJamUtility.git?path=Assets/Core",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -39,7 +46,7 @@
         "com.cysharp.messagepipe.zenject": "1.7.4",
         "com.neuecc.unirx": "7.1.0"
       },
-      "hash": "e59cf2b487b2b33e580e7d0a4a126e25ed41b19a"
+      "hash": "2e8bb57042d8d44c5b35256986bc1a3ad408545e"
     },
     "com.rstartools.bookmarkeverything": {
       "version": "https://github.com/L1247/bookmark-everything.git?path=BookmarkEverything/Assets/BookmarkEverything",

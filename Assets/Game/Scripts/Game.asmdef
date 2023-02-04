@@ -2,7 +2,8 @@
   "name": "Game",
   "rootNamespace": "",
   "references": [
-    "Unity.TextMeshPro"
+      "Unity.TextMeshPro",
+      "GameJamUtility"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

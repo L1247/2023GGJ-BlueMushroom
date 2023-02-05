@@ -15,6 +15,7 @@ namespace Game.Scripts
         private const int dashPower = 10;
 
         private const float groundCheckDistance = 0.2f;
+        private const float playSoundFrequency  = 0.3f;
 
         private int horizontalAxis;
 
@@ -32,6 +33,8 @@ namespace Game.Scripts
 
         private Vector2 defaultColliderOffset;
         private Vector2 defaultColliderSize;
+
+        private float currentMoveSoundTimer;
 
         [SerializeField]
         [Min(0)]
@@ -93,6 +96,7 @@ namespace Game.Scripts
             PlayAnimationWithOnGroundState();
             HandleMove();
             HandleJump();
+            HandleMoveSound();
         }
 
     #endregion
@@ -205,6 +209,23 @@ namespace Game.Scripts
             rb.velocity = new Vector2(direction.x * moveSpeed * 300 * Time.deltaTime , rb.velocity.y);
         }
 
+        private void HandleMoveSound()
+        {
+            var isAir = onGround == false;
+            if (isAir) return;
+            var isIdling = rb.velocity.x <= 0.1f;
+            if (isIdling) return;
+            var deltaTime = Time.deltaTime;
+
+            if (currentMoveSoundTimer >= playSoundFrequency)
+            {
+                currentMoveSoundTimer = 0;
+                PlayMoveSound();
+            }
+
+            currentMoveSoundTimer += deltaTime;
+        }
+
         private bool IsFacingLeft()
         {
             return spriteRenderer.flipX;
@@ -220,6 +241,11 @@ namespace Game.Scripts
         {
             var stateName = onGround ? "Idle" : "Fall";
             animator.Play(stateName);
+        }
+
+        private void PlayMoveSound()
+        {
+            AudioManager.Instance.PlayAudio("HeroWalk");
         }
 
         private void ResetColor()

@@ -134,6 +134,18 @@ namespace Game.Scripts
             SpawnSkill();
         }
 
+        private void CameraScaleEffect()
+        {
+            float cameraSize = 5;
+            DOTween.To(() => cameraSize , x => cameraSize = x , 2.5f , 1.6f)
+                   .SetEase(Ease.OutQuad)
+                   .OnUpdate(() => Camera.main.orthographicSize = cameraSize)
+                   .SetUpdate(UpdateType.Fixed);
+            var position = transform.position;
+            position.z = -10;
+            Camera.main.transform.DOMove(position , 1.6f);
+        }
+
         [ContextMenu("Die")]
         private void Die()
         {
@@ -143,7 +155,7 @@ namespace Game.Scripts
             visual.sprite = death;
             var animator = visual.GetComponent<Animator>();
             animator.enabled = true;
-            SlowTimeEffect();
+            GameOver();
             Invoke(nameof(OnDeathEnd) , deathClip.length);
         }
 
@@ -167,6 +179,12 @@ namespace Game.Scripts
         private void FacingMushroom()
         {
             spriteRenderer.flipX = GetMushroomDirection();
+        }
+
+        private void GameOver()
+        {
+            SlowTimeEffect();
+            CameraScaleEffect();
         }
 
         private bool GetMushroomDirection()

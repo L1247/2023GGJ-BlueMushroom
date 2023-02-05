@@ -117,8 +117,7 @@ namespace Game.Scripts
             spriteRenderer.color = Color.red;
             Invoke(nameof(ResetColor) , flashDuration);
             currentHealthAmount -= 1;
-            var healthPercent = currentHealthAmount / (float)healthAmount;
-            healthBar.SetFillAmount(healthPercent);
+            healthBar.SetFillAmount(currentHealthAmount);
             AudioManager.Instance.PlayAudio("HeroHurt");
             if (currentHealthAmount == 0) Die();
         }
@@ -233,11 +232,11 @@ namespace Game.Scripts
         {
             direction = horizontalAxis switch
             {
-                1 => Vector2.right , -1 => Vector2.left , 0 => Vector2.zero , _ => direction
+                    1 => Vector2.right , -1 => Vector2.left , 0 => Vector2.zero , _ => direction
             };
             spriteRenderer.flipX = horizontalAxis switch
             {
-                1 => false , -1 => true , _ => spriteRenderer.flipX
+                    1 => false , -1 => true , _ => spriteRenderer.flipX
             };
         }
 

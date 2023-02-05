@@ -1,6 +1,6 @@
 #region
 
-using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,20 +13,56 @@ namespace Game.Scripts
     #region Private Variables
 
         [SerializeField]
-        private Image healthBarImage;
-
-        [SerializeField]
-        private TMP_Text healthPercentText;
+        private List<Image> healthBarImages;
 
     #endregion
 
     #region Public Methods
 
-        public void SetFillAmount(float fillAmount)
+        public void SetFillAmount(int currentHealthAmount)
         {
+            Image healthBarImage = null;
+            var   fillAmount     = 0f;
+            switch (currentHealthAmount)
+            {
+                case 5 :
+                    healthBarImage = GetHealthBarImage(0);
+                    fillAmount     = 0.5f;
+                    break;
+                case 4 :
+                    healthBarImage = GetHealthBarImage(0);
+                    fillAmount     = 0;
+                    break;
+                case 3 :
+                    healthBarImage = GetHealthBarImage(1);
+                    fillAmount     = 0.5f;
+                    break;
+                case 2 :
+                    healthBarImage = GetHealthBarImage(1);
+                    fillAmount     = 0f;
+                    break;
+                case 1 :
+                    healthBarImage = GetHealthBarImage(2);
+                    fillAmount     = 0.5f;
+                    break;
+                case 0 :
+                    healthBarImage = GetHealthBarImage(2);
+                    fillAmount     = 0f;
+                    break;
+            }
+
             healthBarImage.fillAmount = fillAmount;
-            var percent = $"{fillAmount * 100:0}%";
-            healthPercentText.text = percent;
+        }
+
+    #endregion
+
+    #region Private Methods
+
+        private Image GetHealthBarImage(int imageIndex)
+        {
+            Image healthBarImage;
+            healthBarImage = healthBarImages[imageIndex];
+            return healthBarImage;
         }
 
     #endregion

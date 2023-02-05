@@ -123,7 +123,8 @@ namespace Game.Scripts
         {
             isDead                                = true;
             GetComponent<BoxCollider2D>().enabled = false;
-            visual.sprite                         = death;
+            HandleDieFacing();
+            visual.sprite = death;
             var animator = visual.GetComponent<Animator>();
             animator.enabled = true;
             SlowTimeEffect();
@@ -166,6 +167,21 @@ namespace Game.Scripts
             var randomTeleportPoint = teleportPointParent.GetChild(teleportIndex);
             lastTeleportIndex = teleportIndex;
             return randomTeleportPoint;
+        }
+
+        private void HandleDieFacing()
+        {
+            if (IsFacingRight())
+            {
+                var position = transform.Find("Position");
+                position.localRotation = Quaternion.Euler(0 , 180 , 0);
+                visual.flipX           = !visual.flipX;
+            }
+        }
+
+        private bool IsFacingRight()
+        {
+            return spriteRenderer.flipX;
         }
 
         private void ResetSprite()

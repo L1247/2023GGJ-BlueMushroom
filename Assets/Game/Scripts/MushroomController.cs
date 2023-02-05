@@ -36,6 +36,8 @@ namespace Game.Scripts
 
         private float currentMoveSoundTimer;
 
+        private bool invincible;
+
         [SerializeField]
         [Min(0)]
         private float moveSpeed;
@@ -117,7 +119,7 @@ namespace Game.Scripts
         [ContextMenu("TakeDamage")]
         public void TakeDamage()
         {
-            if (isDead || inDash) return;
+            if (isDead || inDash || invincible) return;
             spriteRenderer.color = Color.red;
             Invoke(nameof(ResetColor) , flashDuration);
             currentHealthAmount -= 1;
@@ -146,7 +148,8 @@ namespace Game.Scripts
         private void DealDamageForBoss(KingOysterMushroom kingOysterMushroom)
         {
             if (inDash == false) return;
-            kingOysterMushroom.TakeDamage();
+            var bossIsDead             = kingOysterMushroom.TakeDamage();
+            if (bossIsDead) invincible = true;
         }
 
         [ContextMenu("Die")]

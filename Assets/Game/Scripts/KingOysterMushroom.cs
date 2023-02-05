@@ -100,13 +100,14 @@ namespace Game.Scripts
     #region Public Methods
 
         [ContextMenu("TakeDamage")]
-        public void TakeDamage()
+        public bool TakeDamage()
         {
-            if (isDead) return;
+            if (isDead) return true;
             currentHealth -= 1;
             healthBar.SetFillAmount(currentHealth);
             AudioManager.Instance.PlayAudio("BossHurt");
             if (currentHealth <= 0) Die();
+            return currentHealth <= 0;
         }
 
     #endregion

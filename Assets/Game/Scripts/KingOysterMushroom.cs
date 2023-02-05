@@ -21,9 +21,8 @@ namespace Game.Scripts
         private double lastAttackedTime;
         private double lastTeleportTime;
 
-        private float attackFrequency;
-        private float teleportFrequency;
-        private Coroutine _coroutine;
+        private float     attackFrequency;
+        private float     teleportFrequency;
         private Transform teleportPointParent;
         private Vector3   teleportPosition;
 
@@ -46,9 +45,10 @@ namespace Game.Scripts
         [SerializeField]
         [Min(0.1f)]
         private float attackFrequencyMin;
+
         [SerializeField]
         private GameObject enokiWarning;
-        
+
         [SerializeField]
         [Min(0.1f)]
         private float attackFrequencyMax;
@@ -248,6 +248,12 @@ namespace Game.Scripts
             Instantiate(endingUIPrefab);
         }
 
+        private IEnumerator SpawnEnoki(GameObject skillPrefab , Vector3 skillPosition)
+        {
+            yield return new WaitForSeconds(1);
+            Instantiate(skillPrefab , skillPosition , Quaternion.identity);
+        }
+
         private void SpawnSkill()
         {
             spriteRenderer.sprite = skillState;
@@ -260,35 +266,16 @@ namespace Game.Scripts
             var skillPosition = skillPrefab == lingzi ? lingziPosition : enokiPosition;
             if (skillPrefab == enoki)
             {
-                Destroy(Instantiate(enokiWarning , skillPosition , Quaternion.identity),2f);
-                
-                Invoke(nameof(ResetSprite) , 0.5f);
-                _coroutine=StartCoroutine(Epi(enoki,skillPosition));
+                var enokiWarningInstance = Instantiate(enokiWarning , skillPosition , Quaternion.identity);
+                Destroy(enokiWarningInstance , 1f);
+                StartCoroutine(SpawnEnoki(skillPrefab , skillPosition));
             }
             else
-            {
-                 Instantiate(skillPrefab , skillPosition , Quaternion.identity);
-                 Invoke(nameof(ResetSprite) , 0.5f);
-            }
-           
-            
+                Instantiate(skillPrefab , skillPosition , Quaternion.identity);
+
+            Invoke(nameof(ResetSprite) , 0.5f);
         }
 
-        private IEnumerator Epi(GameObject g,Vector3 vector3)
-        {
-            while (true)
-            {
-                 Debug.Log("DO1");
-                 yield return new WaitForSeconds(2f);
-                 
-                 Instantiate(g , vector3 , Quaternion.identity);
-                 Debug.Log("DO");
-                 
-                 StopCoroutine(_coroutine);
-                 _coroutine = null;
-            }
-           
-        }
         private void SpawnTeleportEffect()
         {
             if (effectSpawned) return;

@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using GameJamUtility.Core.AudioManager;
 using UnityEngine;
+using UnityEngine.UI;
 
 #endregion
 
@@ -37,6 +38,8 @@ namespace Game.Scripts
         private float currentMoveSoundTimer;
 
         private bool invincible;
+
+        private float currentDashAmount;
 
         [SerializeField]
         [Min(0)]
@@ -78,12 +81,16 @@ namespace Game.Scripts
         [SerializeField]
         private BoxCollider2D boxCollider2D;
 
+        [SerializeField]
+        private Image dashImage;
+
     #endregion
 
     #region Unity events
 
         private void Start()
         {
+            currentDashAmount     = 3;
             defaultColliderOffset = boxCollider2D.offset;
             defaultColliderSize   = boxCollider2D.size;
             defaultGravityScale   = rb.gravityScale;
@@ -94,6 +101,8 @@ namespace Game.Scripts
 
         private void Update()
         {
+            currentDashAmount    += Time.deltaTime;
+            dashImage.fillAmount =  currentDashAmount / 3f;
             if (movable == false) return;
             HandleDash();
             if (inDash) return;
@@ -181,6 +190,7 @@ namespace Game.Scripts
 
         private void DoDash()
         {
+            currentDashAmount    = 0;
             boxCollider2D.offset = new Vector2(0.04f , 1f);
             boxCollider2D.size   = new Vector2(3.36f , 2.17f);
             animator.Play("Dash");
@@ -202,7 +212,7 @@ namespace Game.Scripts
         {
             var notInDash   = inDash == false;
             var dashKeyDown = Input.GetKeyDown(KeyCode.G);
-            var canDash     = dashKeyDown && notInDash;
+            var canDash     = dashKeyDown && notInDash && currentDashAmount >= 3;
             if (canDash)
             {
                 inDash = true;

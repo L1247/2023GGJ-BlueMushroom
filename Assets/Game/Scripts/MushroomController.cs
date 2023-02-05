@@ -41,7 +41,8 @@ namespace Game.Scripts
         [SerializeField]
         [Min(0)]
         private float moveSpeed;
-
+        [SerializeField]
+        private GameObject Reload;
         [SerializeField]
         private SpriteRenderer spriteRenderer;
 
@@ -162,6 +163,7 @@ namespace Game.Scripts
             var angularVelocity              = onGround ? 400 : 100;
             var angularVelocityWithDirection = IsFacingLeft() ? -angularVelocity : angularVelocity;
             rb.angularVelocity = angularVelocityWithDirection;
+            Reload.SetActive(true);
         }
 
         private void DisableMask()

@@ -78,6 +78,9 @@ namespace Game.Scripts
         [SerializeField]
         private AnimationClip deathClip;
 
+        [SerializeField]
+        private EndingUI endingUIPrefab;
+
     #endregion
 
     #region Unity events
@@ -212,6 +215,8 @@ namespace Game.Scripts
                 friend.DOFade(1 , 1).SetEase(Ease.Linear);
                 friend.flipX = !GetMushroomDirection();
             }
+
+            Invoke(nameof(SpawnEndingUI) , 2f);
         }
 
         private void ResetSprite()
@@ -233,6 +238,11 @@ namespace Game.Scripts
                    .SetEase(Ease.OutQuad)
                    .OnUpdate(() => Time.timeScale = timeScale)
                    .SetUpdate(UpdateType.Fixed);
+        }
+
+        private void SpawnEndingUI()
+        {
+            Instantiate(endingUIPrefab);
         }
 
         private void SpawnSkill()

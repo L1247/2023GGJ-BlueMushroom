@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 8393663464452733010}
   - component: {fileID: 5120493795326605044}
   - component: {fileID: 2819639802725519464}
+  - component: {fileID: 1811646297994800202}
   m_Layer: 5
   m_Name: GameEnding
   m_TagString: Untagged
@@ -180,6 +181,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1811646297994800202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709081744194278819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa23290d5244919bcdb65ec160516ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group: {fileID: 8656010570125388545}
 --- !u!1 &2090647667720576414
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +358,6 @@ GameObject:
   - component: {fileID: 4278804404383251176}
   - component: {fileID: 1591220646817999686}
   - component: {fileID: 5409810787029859508}
-  - component: {fileID: 3836124791251884468}
   m_Layer: 0
   m_Name: Mask
   m_TagString: Untagged
@@ -424,19 +437,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3836124791251884468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4281219419256765231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfa23290d5244919bcdb65ec160516ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  group: {fileID: 8656010570125388545}
 --- !u!1 &6065797812102254210
 GameObject:
   m_ObjectHideFlags: 0

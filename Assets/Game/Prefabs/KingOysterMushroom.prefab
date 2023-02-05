@@ -283,6 +283,7 @@ MonoBehaviour:
   healthAmount: 6
   healthBar: {fileID: 722590291896307537}
   deathClip: {fileID: 7400000, guid: 708f9652c868bec468b23a6f8bd61dd2, type: 2}
+  endingUIPrefab: {fileID: 1811646297994800202, guid: 80aac104a1d914c419f9f0fce240b92d, type: 3}
 --- !u!61 &495994275
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -34,6 +34,9 @@ namespace Game.Scripts
         private bool isDead;
 
         [SerializeField]
+        private Transform friends;
+
+        [SerializeField]
         private SpriteRenderer visual;
 
         [SerializeField]
@@ -72,12 +75,16 @@ namespace Game.Scripts
         [SerializeField]
         private HealthBar healthBar;
 
+        [SerializeField]
+        private AnimationClip deathClip;
+
     #endregion
 
     #region Unity events
 
         private void Start()
         {
+            friends.gameObject.SetActive(false);
             currentHealth       = healthAmount;
             teleportPointParent = GameObject.Find("TeleportPoints").transform;
             lastTeleportTime    = Time.time + teleportFrequencyMin;
@@ -131,6 +138,7 @@ namespace Game.Scripts
             var animator = visual.GetComponent<Animator>();
             animator.enabled = true;
             SlowTimeEffect();
+            Invoke(nameof(OnDeathEnd) , deathClip.length);
         }
 
         private bool DoAttack()
@@ -152,9 +160,15 @@ namespace Game.Scripts
 
         private void FacingMushroom()
         {
-            var mushroomX = mushroomController.GetPos().x;
-            var mineX     = transform.position.x;
-            spriteRenderer.flipX = mineX <= mushroomX;
+            spriteRenderer.flipX = GetMushroomDirection();
+        }
+
+        private bool GetMushroomDirection()
+        {
+            var mushroomX         = mushroomController.GetPos().x;
+            var mineX             = transform.position.x;
+            var mushroomDirection = mineX <= mushroomX;
+            return mushroomDirection;
         }
 
         private Transform GetRandomTeleportPoint()
@@ -185,6 +199,19 @@ namespace Game.Scripts
         private bool IsFacingRight()
         {
             return spriteRenderer.flipX;
+        }
+
+        private void OnDeathEnd()
+        {
+            spriteRenderer.DOFade(0 , 1).SetEase(Ease.Linear);
+            friends.gameObject.SetActive(true);
+            for (var i = 0 ; i < friends.childCount ; i++)
+            {
+                var friend = friends.GetChild(i).gameObject.GetComponent<SpriteRenderer>();
+                friend.color = new Color(1 , 1 , 1 , 0);
+                friend.DOFade(1 , 1).SetEase(Ease.Linear);
+                friend.flipX = !GetMushroomDirection();
+            }
         }
 
         private void ResetSprite()

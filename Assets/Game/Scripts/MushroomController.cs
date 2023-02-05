@@ -149,8 +149,12 @@ namespace Game.Scripts
         private void DealDamageForBoss(KingOysterMushroom kingOysterMushroom)
         {
             if (inDash == false) return;
-            var bossIsDead             = kingOysterMushroom.TakeDamage();
-            if (bossIsDead) invincible = true;
+            var bossIsDead = kingOysterMushroom.TakeDamage();
+            if (bossIsDead)
+            {
+                invincible = true;
+                movable    = false;
+            }
         }
 
         [ContextMenu("Die")]

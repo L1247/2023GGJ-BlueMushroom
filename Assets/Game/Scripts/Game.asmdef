@@ -3,7 +3,8 @@
   "rootNamespace": "",
   "references": [
       "Unity.TextMeshPro",
-      "GameJamUtility"
+      "GameJamUtility",
+      "DOTween.Modules"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

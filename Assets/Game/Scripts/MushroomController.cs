@@ -212,7 +212,7 @@ namespace Game.Scripts
         {
             var horizontal = GetHorizontalAxis();
             Turn(horizontal);
-            
+
             rb.velocity = new Vector2(direction.x * moveSpeed * 300 * Time.deltaTime , rb.velocity.y);
         }
 
@@ -232,10 +232,7 @@ namespace Game.Scripts
 
             currentMoveSoundTimer += deltaTime;
         }
-        private void MoveSound()
-        {
-            //if()
-        }
+
         private bool IsFacingLeft()
         {
             return spriteRenderer.flipX;
@@ -255,7 +252,7 @@ namespace Game.Scripts
 
         private void PlayMoveSound()
         {
-            AudioManager.Instance.PlayAudio("HeroWalk", 1f);
+            AudioManager.Instance.PlayAudio("HeroWalk");
         }
 
         private void ResetColor()

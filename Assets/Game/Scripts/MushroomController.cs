@@ -158,7 +158,6 @@ namespace Game.Scripts
 
         private void DoDash()
         {
-            // boxCollider2D.enabled = false;
             boxCollider2D.offset = new Vector2(0.04f , 1f);
             boxCollider2D.size   = new Vector2(3.36f , 2.17f);
             animator.Play("Dash");
@@ -209,6 +208,12 @@ namespace Game.Scripts
         private bool IsFacingLeft()
         {
             return spriteRenderer.flipX;
+        }
+
+        private void OnTriggerEnter2D(Collider2D col)
+        {
+            if (col.gameObject.TryGetComponent<KingOysterMushroom>(out var kingOysterMushroom))
+                kingOysterMushroom.TakeDamage();
         }
 
         private void PlayAnimationWithOnGroundState()

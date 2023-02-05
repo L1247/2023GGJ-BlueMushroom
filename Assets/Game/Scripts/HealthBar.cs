@@ -21,7 +21,7 @@ namespace Game.Scripts
 
         public void SetFillAmount(int currentHealthAmount)
         {
-            if (currentHealthAmount <= 0) return;
+            if (currentHealthAmount < 0) return;
             Image healthBarImage = null;
             var   fillAmount     = 0f;
             switch (currentHealthAmount)

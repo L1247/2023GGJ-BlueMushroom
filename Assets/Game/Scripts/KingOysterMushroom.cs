@@ -1,6 +1,5 @@
 #region
 
-using GameJamUtility.Core.AudioManager;
 using UnityEngine;
 
 #endregion
@@ -28,6 +27,16 @@ namespace Game.Scripts
         private bool effectSpawned;
         private int  lastTeleportIndex;
 
+        private int currentHealth;
+
+        private bool isDead;
+
+        [SerializeField]
+        private SpriteRenderer visual;
+
+        [SerializeField]
+        private Sprite death;
+
         [SerializeField]
         [Min(0.1f)]
         private float attackFrequencyMin;
@@ -54,12 +63,20 @@ namespace Game.Scripts
         [SerializeField]
         private GameObject teleportEffect;
 
+        [SerializeField]
+        [Min(1)]
+        private int healthAmount;
+
+        [SerializeField]
+        private HealthBar healthBar;
+
     #endregion
 
     #region Unity events
 
         private void Start()
         {
+            currentHealth       = healthAmount;
             teleportPointParent = GameObject.Find("TeleportPoints").transform;
             lastTeleportTime    = Time.time + teleportFrequencyMin;
             mushroomController  = FindObjectOfType<MushroomController>();
@@ -69,10 +86,24 @@ namespace Game.Scripts
 
         private void Update()
         {
+            if (isDead) return;
             FacingMushroom();
             if (DoAttack()) Attack();
             if (DoSpawnTeleportEffect()) SpawnTeleportEffect();
             if (DoTeleport()) Teleport();
+        }
+
+    #endregion
+
+    #region Public Methods
+
+        [ContextMenu("TakeDamage")]
+        public void TakeDamage()
+        {
+            if (isDead) return;
+            currentHealth -= 1;
+            healthBar.SetFillAmount(currentHealth);
+            if (currentHealth <= 0) Die();
         }
 
     #endregion
@@ -84,6 +115,16 @@ namespace Game.Scripts
             lastAttackedTime = Time.time;
             SetNextAttackFrequency();
             SpawnSkill();
+        }
+
+        [ContextMenu("Die")]
+        private void Die()
+        {
+            isDead                                = true;
+            GetComponent<BoxCollider2D>().enabled = false;
+            visual.sprite                         = death;
+            var animator = visual.GetComponent<Animator>();
+            animator.enabled = true;
         }
 
         private bool DoAttack()
@@ -127,6 +168,8 @@ namespace Game.Scripts
 
         private void ResetSprite()
         {
+            if (isDead) return;
+
             spriteRenderer.sprite = normalState;
         }
 
@@ -145,7 +188,6 @@ namespace Game.Scripts
             var enokiPosition = mushroomPosition;
             enokiPosition.y -= 1.2f;
             var skillPosition = skillPrefab == lingzi ? lingziPosition : enokiPosition;
-            
             Instantiate(skillPrefab , skillPosition , Quaternion.identity);
             Invoke(nameof(ResetSprite) , 0.5f);
         }
@@ -158,14 +200,11 @@ namespace Game.Scripts
             teleportPosition.y += 2.3f;
             var effectPosition = teleportPosition;
             effectPosition.y -= 0.77f;
-            
             Instantiate(teleportEffect , effectPosition , Quaternion.identity);
         }
 
         private void Teleport()
         {
-            
-            AudioManager.Instance.PlayAudio("BossTeleport");
             lastTeleportTime   = Time.time;
             teleportFrequency  = Random.Range(teleportFrequencyMin , teleportFrequencyMax);
             transform.position = teleportPosition;

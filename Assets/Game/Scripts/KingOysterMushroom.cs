@@ -1,5 +1,6 @@
 #region
 
+using DG.Tweening;
 using UnityEngine;
 
 #endregion
@@ -125,6 +126,7 @@ namespace Game.Scripts
             visual.sprite                         = death;
             var animator = visual.GetComponent<Animator>();
             animator.enabled = true;
+            SlowTimeEffect();
         }
 
         private bool DoAttack()
@@ -176,6 +178,15 @@ namespace Game.Scripts
         private void SetNextAttackFrequency()
         {
             attackFrequency = Random.Range(attackFrequencyMin , attackFrequencyMax);
+        }
+
+        private static void SlowTimeEffect()
+        {
+            float timeScale = 0;
+            DOTween.To(() => timeScale , x => timeScale = x , 1 , 1.6f)
+                   .SetEase(Ease.OutQuad)
+                   .OnUpdate(() => Time.timeScale = timeScale)
+                   .SetUpdate(UpdateType.Fixed);
         }
 
         private void SpawnSkill()

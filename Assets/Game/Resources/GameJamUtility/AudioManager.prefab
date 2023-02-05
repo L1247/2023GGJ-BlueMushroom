@@ -50,12 +50,24 @@ MonoBehaviour:
     infos:
     - key: HeroHurt
       value: {fileID: 8300000, guid: 72df419aeea14954a9376c51a672eaa8, type: 3}
-    - key: linG_fly
+    - key: LinziFly
       value: {fileID: 8300000, guid: be72d897d53fbfb49a6e2bbef0907237, type: 3}
-    - key: jinjen_appear
+    - key: JinjenAppear
       value: {fileID: 8300000, guid: 3d96e3e3c13c9094eadf765ad49442a5, type: 3}
-    - key: walk
-      value: {fileID: 8300000, guid: 50383d3a7e2142f47b9e7688eed70c58, type: 3}
+    - key: JinjenWarning
+      value: {fileID: 8300000, guid: 374a3a5c4b7dc954c9c6b421543309c9, type: 3}
+    - key: LinziCharge
+      value: {fileID: 8300000, guid: 6f627e222e00f5e4285e980b9896bb6a, type: 3}
+    - key: BossHurt
+      value: {fileID: 8300000, guid: 0dc1e674f8a07c445965bb16ff93250c, type: 3}
+    - key: BossTeleport
+      value: {fileID: 8300000, guid: 6b6f6f54156a50b4f88f23df9c7e4444, type: 3}
+    - key: HeroDash
+      value: {fileID: 8300000, guid: 8465fb466e4aa5b41bd8a5c6fb54e630, type: 3}
+    - key: HeroJump
+      value: {fileID: 8300000, guid: 7b0e41030a75d594081d37f072a4ec16, type: 3}
+    - key: HeroWalk
+      value: {fileID: 8300000, guid: 297587e9dd85a354e99e6da0d49e7d09, type: 3}
   musicDataBase:
     infos: []
 --- !u!82 &7391964115304678859

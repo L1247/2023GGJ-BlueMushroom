@@ -1,5 +1,6 @@
 #region
 
+using GameJamUtility.Core.AudioManager;
 using UnityEngine;
 
 #endregion
@@ -144,6 +145,7 @@ namespace Game.Scripts
             var enokiPosition = mushroomPosition;
             enokiPosition.y -= 1.2f;
             var skillPosition = skillPrefab == lingzi ? lingziPosition : enokiPosition;
+            
             Instantiate(skillPrefab , skillPosition , Quaternion.identity);
             Invoke(nameof(ResetSprite) , 0.5f);
         }
@@ -156,11 +158,14 @@ namespace Game.Scripts
             teleportPosition.y += 2.3f;
             var effectPosition = teleportPosition;
             effectPosition.y -= 0.77f;
+            
             Instantiate(teleportEffect , effectPosition , Quaternion.identity);
         }
 
         private void Teleport()
         {
+            
+            AudioManager.Instance.PlayAudio("BossTeleport");
             lastTeleportTime   = Time.time;
             teleportFrequency  = Random.Range(teleportFrequencyMin , teleportFrequencyMax);
             transform.position = teleportPosition;

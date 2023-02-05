@@ -1,5 +1,6 @@
 #region
 
+using GameJamUtility.Core.AudioManager;
 using UnityEngine;
 
 #endregion
@@ -34,6 +35,7 @@ namespace Game.Scripts
             mushPosition.y += 1;
 
             RefreshLineRendererPositions();
+            AudioManager.Instance.PlayAudio("LinziCharge");
             Destroy(gameObject , 3f);
         }
 

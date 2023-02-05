@@ -1,5 +1,7 @@
 #region
 
+using System.Collections;
+using GameJamUtility.Core.AudioManager;
 using UnityEngine;
 
 #endregion
@@ -19,9 +21,11 @@ namespace Game.Scripts
 
         private void Start()
         {
+            
+            AudioManager.Instance.PlayAudio("JinjenAppear");
             Destroy(gameObject , clip.length + 0.2f);
         }
-
     #endregion
+        
     }
 }

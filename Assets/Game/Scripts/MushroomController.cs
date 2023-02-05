@@ -166,7 +166,7 @@ namespace Game.Scripts
             var dashDirection = IsFacingLeft() ? -dashPower : dashPower;
             var dashMovement  = dashDirection * Time.timeScale * moveSpeed;
             rb.velocity = new Vector2(dashMovement , 0);
-
+            AudioManager.Instance.PlayAudio("HeroDash");
             Invoke(nameof(ResetFromDash) , 0.5f);
         }
 
@@ -192,7 +192,11 @@ namespace Game.Scripts
         {
             var spaceKeyDown = Input.GetKeyDown(KeyCode.Space);
             var canJump      = spaceKeyDown && onGround;
-            if (canJump) rb.AddForce(new Vector2(rb.velocity.x , jumpForce) , ForceMode2D.Impulse);
+            if (canJump)
+            {
+                AudioManager.Instance.PlayAudio("HeroJump");
+                rb.AddForce(new Vector2(rb.velocity.x , jumpForce) , ForceMode2D.Impulse);
+            }
         }
 
         private void HandleMove()

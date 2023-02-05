@@ -41,8 +41,10 @@ namespace Game.Scripts
         [SerializeField]
         [Min(0)]
         private float moveSpeed;
+
         [SerializeField]
         private GameObject Reload;
+
         [SerializeField]
         private SpriteRenderer spriteRenderer;
 
@@ -155,6 +157,8 @@ namespace Game.Scripts
                 invincible = true;
                 movable    = false;
             }
+
+            Invoke(nameof(ResetAnimation) , 2f);
         }
 
         [ContextMenu("Die")]
@@ -262,6 +266,11 @@ namespace Game.Scripts
         private void PlayMoveSound()
         {
             AudioManager.Instance.PlayAudio("HeroWalk");
+        }
+
+        private void ResetAnimation()
+        {
+            animator.Play("Idle");
         }
 
         private void ResetColor()

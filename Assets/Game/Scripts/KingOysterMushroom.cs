@@ -138,7 +138,7 @@ namespace Game.Scripts
         {
             float cameraSize = 5;
             DOTween.To(() => cameraSize , x => cameraSize = x , 2.5f , 1.6f)
-                   .SetEase(Ease.OutQuad)
+                   // .SetEase(Ease.OutQuad)
                    .OnUpdate(() => Camera.main.orthographicSize = cameraSize)
                    .SetUpdate(UpdateType.Fixed);
             var position = transform.position;

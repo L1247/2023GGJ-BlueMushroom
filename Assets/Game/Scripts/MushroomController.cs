@@ -143,6 +143,12 @@ namespace Game.Scripts
             }
         }
 
+        private void DealDamageForBoss(KingOysterMushroom kingOysterMushroom)
+        {
+            if (inDash == false) return;
+            kingOysterMushroom.TakeDamage();
+        }
+
         [ContextMenu("Die")]
         private void Die()
         {
@@ -234,7 +240,7 @@ namespace Game.Scripts
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (col.gameObject.TryGetComponent<KingOysterMushroom>(out var kingOysterMushroom))
-                kingOysterMushroom.TakeDamage();
+                DealDamageForBoss(kingOysterMushroom);
         }
 
         private void PlayAnimationWithOnGroundState()

@@ -1,5 +1,6 @@
 #region
 
+using System.Collections;
 using DG.Tweening;
 using GameJamUtility.Core.AudioManager;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace Game.Scripts
 
         private float attackFrequency;
         private float teleportFrequency;
-
+        private Coroutine _coroutine;
         private Transform teleportPointParent;
         private Vector3   teleportPosition;
 
@@ -45,7 +46,9 @@ namespace Game.Scripts
         [SerializeField]
         [Min(0.1f)]
         private float attackFrequencyMin;
-
+        [SerializeField]
+        private GameObject enokiWarning;
+        
         [SerializeField]
         [Min(0.1f)]
         private float attackFrequencyMax;
@@ -255,10 +258,37 @@ namespace Game.Scripts
             var enokiPosition = mushroomPosition;
             enokiPosition.y -= 1.2f;
             var skillPosition = skillPrefab == lingzi ? lingziPosition : enokiPosition;
-            Instantiate(skillPrefab , skillPosition , Quaternion.identity);
-            Invoke(nameof(ResetSprite) , 0.5f);
+            if (skillPrefab == enoki)
+            {
+                Destroy(Instantiate(enokiWarning , skillPosition , Quaternion.identity),2f);
+                
+                Invoke(nameof(ResetSprite) , 0.5f);
+                _coroutine=StartCoroutine(Epi(enoki,skillPosition));
+            }
+            else
+            {
+                 Instantiate(skillPrefab , skillPosition , Quaternion.identity);
+                 Invoke(nameof(ResetSprite) , 0.5f);
+            }
+           
+            
         }
 
+        private IEnumerator Epi(GameObject g,Vector3 vector3)
+        {
+            while (true)
+            {
+                 Debug.Log("DO1");
+                 yield return new WaitForSeconds(2f);
+                 
+                 Instantiate(g , vector3 , Quaternion.identity);
+                 Debug.Log("DO");
+                 
+                 StopCoroutine(_coroutine);
+                 _coroutine = null;
+            }
+           
+        }
         private void SpawnTeleportEffect()
         {
             if (effectSpawned) return;

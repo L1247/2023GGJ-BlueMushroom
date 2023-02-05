@@ -23,6 +23,7 @@ namespace Game.Scripts
         {
             
             AudioManager.Instance.PlayAudio("JinjenAppear");
+            
             Destroy(gameObject , clip.length + 0.2f);
         }
     #endregion

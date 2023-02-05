@@ -2443,6 +2443,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8335709380878601197, guid: 2ebd6cf05f9f8e144b3899ff34fe67fd, type: 3}
+      propertyPath: enokiWarning
+      value: 
+      objectReference: {fileID: 2429007251735580161, guid: f9c96f6a58b2278488cd1c55a727eeb2, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

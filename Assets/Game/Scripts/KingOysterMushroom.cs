@@ -1,6 +1,7 @@
 #region
 
 using DG.Tweening;
+using GameJamUtility.Core.AudioManager;
 using UnityEngine;
 
 #endregion
@@ -104,6 +105,7 @@ namespace Game.Scripts
             if (isDead) return;
             currentHealth -= 1;
             healthBar.SetFillAmount(currentHealth);
+            AudioManager.Instance.PlayAudio("BossHurt");
             if (currentHealth <= 0) Die();
         }
 

@@ -212,6 +212,7 @@ namespace Game.Scripts
         {
             var horizontal = GetHorizontalAxis();
             Turn(horizontal);
+            
             rb.velocity = new Vector2(direction.x * moveSpeed * 300 * Time.deltaTime , rb.velocity.y);
         }
 
@@ -219,7 +220,7 @@ namespace Game.Scripts
         {
             var isAir = onGround == false;
             if (isAir) return;
-            var isIdling = rb.velocity.x <= 0.1f;
+            var isIdling = Mathf.Abs(rb.velocity.x) <= 0.1f;
             if (isIdling) return;
             var deltaTime = Time.deltaTime;
 
@@ -231,7 +232,10 @@ namespace Game.Scripts
 
             currentMoveSoundTimer += deltaTime;
         }
-
+        private void MoveSound()
+        {
+            //if()
+        }
         private bool IsFacingLeft()
         {
             return spriteRenderer.flipX;
@@ -251,7 +255,7 @@ namespace Game.Scripts
 
         private void PlayMoveSound()
         {
-            AudioManager.Instance.PlayAudio("HeroWalk");
+            AudioManager.Instance.PlayAudio("HeroWalk", 1f);
         }
 
         private void ResetColor()

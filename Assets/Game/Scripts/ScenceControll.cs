@@ -46,9 +46,13 @@ public class ScenceControll : MonoBehaviour
     {
         var duration = 1.5f;
         front.SetActive(false);
-        bg.transform.DOScale(3 , duration).SetEase(Ease.OutQuad);
-        bg.DOFade(0 , duration).SetEase(Ease.OutQuad);
-        SceneManager.LoadScene(bossRoomSceneName , LoadSceneMode.Single);
+        bg.transform.DOScale(3 , duration).SetEase(Ease.OutQuad).OnComplete(() =>
+        {
+            SceneManager.LoadScene(
+                    bossRoomSceneName , LoadSceneMode.Single);
+        });
+
+        bg.DOFade(0 , 0.1f).SetEase(Ease.Linear);
     }
 
     private void Quit()

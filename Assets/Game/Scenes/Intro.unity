@@ -553,6 +553,7 @@ MonoBehaviour:
   startBtn: {fileID: 2110849872}
   bossRoomSceneName: Boss Room
   front: {fileID: 555591238}
+  bg: {fileID: 924931929}
 --- !u!1 &924931927
 GameObject:
   m_ObjectHideFlags: 0

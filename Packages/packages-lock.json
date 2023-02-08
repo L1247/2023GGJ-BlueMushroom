@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "9de949245de619610f71583a8d48ef1bea61e840"
+      "hash": "670fa77d8f43d60719bfad593772249b74038205"
     },
     "com.rstartools.bookmarkeverything": {
       "version": "https://github.com/L1247/bookmark-everything.git?path=BookmarkEverything/Assets/BookmarkEverything",

@@ -145,6 +145,12 @@ namespace Game.Scripts
 
     #region Private Methods
 
+        private bool CanDash()
+        {
+            var canDash = currentDashAmount >= maxDashAmount;
+            return canDash;
+        }
+
         private void CheckOnGround()
         {
             foreach (var groundSensor in groundSensors)
@@ -160,8 +166,7 @@ namespace Game.Scripts
 
         private void CountDashEnergy()
         {
-            var canDash = currentDashAmount >= maxDashAmount;
-            if (canDash) return;
+            if (CanDash()) return;
             currentDashAmount += Time.deltaTime;
             var barPercent = currentDashAmount / maxDashAmount;
             dashImage.fillAmount = barPercent;
@@ -222,8 +227,8 @@ namespace Game.Scripts
         {
             var notInDash   = inDash == false;
             var dashKeyDown = Input.GetKeyDown(KeyCode.G);
-            var canDash     = dashKeyDown && notInDash && currentDashAmount >= 3;
-            if (canDash)
+            var useDash     = dashKeyDown && notInDash && CanDash();
+            if (useDash)
             {
                 inDash = true;
                 DoDash();

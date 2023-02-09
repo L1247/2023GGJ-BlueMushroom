@@ -41,6 +41,8 @@ namespace Game.Scripts
 
         private float currentDashAmount;
 
+        private readonly float maxDashAmount = 3f;
+
         [SerializeField]
         [Min(0)]
         private float moveSpeed;
@@ -101,8 +103,7 @@ namespace Game.Scripts
 
         private void Update()
         {
-            currentDashAmount    += Time.deltaTime;
-            dashImage.fillAmount =  currentDashAmount / 3f;
+            CountDashEnergy();
             if (movable == false) return;
             HandleDash();
             if (inDash) return;
@@ -155,6 +156,15 @@ namespace Game.Scripts
                 Debug.DrawRay(groundSensorPosition , groundSensorForward * groundCheckDistance , onGround ? Color.green : Color.red);
                 if (onGround) break;
             }
+        }
+
+        private void CountDashEnergy()
+        {
+            var canDash = currentDashAmount >= maxDashAmount;
+            if (canDash) return;
+            currentDashAmount += Time.deltaTime;
+            var barPercent = currentDashAmount / maxDashAmount;
+            dashImage.fillAmount = barPercent;
         }
 
         private void DealDamageForBoss(KingOysterMushroom kingOysterMushroom)
@@ -241,8 +251,8 @@ namespace Game.Scripts
 
         private void HandleMoveSound()
         {
-            var isAir = onGround == false;
-            if (isAir) return;
+            var isInAir = onGround == false;
+            if (isInAir) return;
             var isIdling = Mathf.Abs(rb.velocity.x) <= 0.1f;
             if (isIdling) return;
             var deltaTime = Time.deltaTime;
@@ -263,8 +273,7 @@ namespace Game.Scripts
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.gameObject.TryGetComponent<KingOysterMushroom>(out var kingOysterMushroom))
-                DealDamageForBoss(kingOysterMushroom);
+            if (col.gameObject.TryGetComponent<KingOysterMushroom>(out var kingOysterMushroom)) DealDamageForBoss(kingOysterMushroom);
         }
 
         private void PlayAnimationWithOnGroundState()
@@ -302,11 +311,11 @@ namespace Game.Scripts
         {
             direction = horizontalAxis switch
             {
-                    1 => Vector2.right , -1 => Vector2.left , 0 => Vector2.zero , _ => direction
+                1 => Vector2.right , -1 => Vector2.left , 0 => Vector2.zero , _ => direction
             };
             spriteRenderer.flipX = horizontalAxis switch
             {
-                    1 => false , -1 => true , _ => spriteRenderer.flipX
+                1 => false , -1 => true , _ => spriteRenderer.flipX
             };
         }
 

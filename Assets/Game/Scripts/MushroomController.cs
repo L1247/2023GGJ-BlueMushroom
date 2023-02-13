@@ -132,7 +132,8 @@ namespace Game.Scripts
         [ContextMenu("TakeDamage")]
         public void TakeDamage()
         {
-            if (isDead || inDash || invincible) return;
+            var unDamageable = isDead || inDash || invincible;
+            if (unDamageable) return;
             spriteRenderer.color = Color.red;
             Invoke(nameof(ResetColor) , flashDuration);
             currentHealthAmount -= 1;
